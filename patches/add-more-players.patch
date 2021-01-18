@@ -1,5 +1,5 @@
 diff --git a/defs.h b/defs.h
-index 059de08e..4112db4b 100644
+index 059de08e..d54646b3 100644
 --- a/defs.h
 +++ b/defs.h
 @@ -17,7 +17,7 @@
@@ -11,3 +11,12 @@ index 059de08e..4112db4b 100644
  
  #define MAX_CHARACTERS			10
  #define MAX_LVLMTYPES			16
+@@ -35,7 +35,7 @@
+ #define MAXMONSTERS				200
+ #define MAXMULTIQUESTS			4
+ #define MAXOBJECTS				127
+-#define MAXPORTAL				4
++#define MAXPORTAL				16
+ #define MAXQUESTS				16
+ #define MAXTHEMES				50
+ #define MAXTILES				2048
