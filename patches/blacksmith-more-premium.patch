@@ -1,0 +1,17 @@
+diff --git a/defs.h b/defs.h
+index 059de08e..4dad222d 100644
+--- a/defs.h
++++ b/defs.h
+@@ -61,9 +61,9 @@
+ // todo: enums
+ #define NUMLEVELS				17
+ #define SMITH_ITEMS				20
+-#define SMITH_PREMIUM_ITEMS		6
+-#define SMITH_MAX_VALUE			140000
+-#define SMITH_MAX_PREMIUM_VALUE 140000
++#define SMITH_PREMIUM_ITEMS		12
++#define SMITH_MAX_VALUE			240000
++#define SMITH_MAX_PREMIUM_VALUE 240000
+ 
+ // from diablo 2 beta
+ #define MAXEXP					2000000000
