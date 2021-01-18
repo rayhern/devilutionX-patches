@@ -1,0 +1,119 @@
+diff --git a/Source/multi.cpp b/Source/multi.cpp
+index f8200289..7567f97a 100644
+--- a/Source/multi.cpp
++++ b/Source/multi.cpp
+@@ -756,11 +756,11 @@ int InitLevelType(int l)
+ {
+ 	if (l == 0)
+ 		return 0;
+-	if (l >= 1 && l <= 4)
++	if (l >= 1 && l <= 8)
+ 		return 1;
+-	if (l >= 5 && l <= 8)
++	if (l >= 9 && l <= 16)
+ 		return 2;
+-	if (l >= 9 && l <= 12)
++	if (l >= 17 && l <= 24)
+ 		return 3;
+ 
+ 	return 4;
+diff --git a/SourceX/DiabloUI/selgame.cpp b/SourceX/DiabloUI/selgame.cpp
+index e786503d..895efff6 100644
+--- a/SourceX/DiabloUI/selgame.cpp
++++ b/SourceX/DiabloUI/selgame.cpp
+@@ -70,6 +70,7 @@ void selgame_GameSelection_Init()
+ 	}
+ 
+ 	getIniValue("Phone Book", "Entry1", selgame_Ip, 128);
++	getIniValue("Phone Book", "Password1", selgame_Password, 15);
+ 
+ 	selgame_FreeVectors();
+ 
+@@ -350,7 +351,7 @@ void selgame_Speed_Select(int value)
+ 
+ void selgame_Password_Init(int value)
+ {
+-	memset(&selgame_Password, 0, sizeof(selgame_Password));
++	// memset(&selgame_Password, 0, sizeof(selgame_Password));
+ 
+ 	selgame_FreeVectors();
+ 
+@@ -385,6 +386,7 @@ void selgame_Password_Select(int value)
+ {
+ 	if (selgame_selectedGame) {
+ 		setIniValue("Phone Book", "Entry1", selgame_Ip);
++		setIniValue("Phone Book", "Password1", selgame_Password);
+ 		if (SNetJoinGame(selgame_selectedGame, selgame_Ip, selgame_Password, NULL, NULL, gdwPlayerId)) {
+ 			if (!IsDifficultyAllowed(m_client_info->initdata->bDiff)) {
+ 				selgame_GameSelection_Select(1);
+diff --git a/defs.h b/defs.h
+index 059de08e..a3996b82 100644
+--- a/defs.h
++++ b/defs.h
+@@ -17,7 +17,7 @@
+ #define GMENU_ENABLED			0x80000000
+ 
+ // must be unsigned to generate unsigned comparisons with pnum
+-#define MAX_PLRS				4
++#define MAX_PLRS				16
+ 
+ #define MAX_CHARACTERS			10
+ #define MAX_LVLMTYPES			16
+@@ -25,25 +25,25 @@
+ #define MAX_SEND_STR_LEN		80
+ #define MAX_SPELLS				37
+ 
+-#define MAXDEAD					31
++#define MAXDEAD					62
+ #define MAXDUNX					112
+ #define MAXDUNY					112
+-#define MAXITEMS				127
++#define MAXITEMS				254
+ #define MAXBELTITEMS			8
+ #define MAXLIGHTS				32
+ #define MAXMISSILES				125
+-#define MAXMONSTERS				200
++#define MAXMONSTERS				400
+ #define MAXMULTIQUESTS			4
+-#define MAXOBJECTS				127
+-#define MAXPORTAL				4
++#define MAXOBJECTS				254
++#define MAXPORTAL				16
+ #define MAXQUESTS				16
+ #define MAXTHEMES				50
+-#define MAXTILES				2048
++#define MAXTILES				4096
+ #define MAXTRIGGERS				5
+ #define MAXVISION				32
+ #define MDMAXX					40
+ #define MDMAXY					40
+-#define MAXCHARLEVEL			51
++#define MAXCHARLEVEL			99
+ #define ITEMTYPES				35
+ 
+ // number of inventory grid cells
+@@ -59,19 +59,19 @@
+ #define NUM_TOWNERS				16
+ 
+ // todo: enums
+-#define NUMLEVELS				17
++#define NUMLEVELS				34
+ #define SMITH_ITEMS				20
+ #define SMITH_PREMIUM_ITEMS		6
+ #define SMITH_MAX_VALUE			140000
+ #define SMITH_MAX_PREMIUM_VALUE 140000
+ 
+ // from diablo 2 beta
+-#define MAXEXP					2000000000
++#define MAXEXP					4000000000
+ #define MAXRESIST				75
+ 
+-#define GOLD_SMALL_LIMIT		1000
+-#define GOLD_MEDIUM_LIMIT		2500
+-#define GOLD_MAX_LIMIT			5000
++#define GOLD_SMALL_LIMIT		5000
++#define GOLD_MEDIUM_LIMIT		10000
++#define GOLD_MAX_LIMIT			20000
+ 
+ #define PLR_NAME_LEN			32
+ 
