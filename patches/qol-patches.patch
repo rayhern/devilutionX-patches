@@ -17,6 +17,23 @@ index f8200289..7567f97a 100644
  		return 3;
  
  	return 4;
+diff --git a/Source/player.cpp b/Source/player.cpp
+index 93989dcf..87303b9b 100644
+--- a/Source/player.cpp
++++ b/Source/player.cpp
+@@ -78,9 +78,9 @@ char *ClassStrTblOld[] = {
+ };
+ /** Maps from player_class to maximum stats. */
+ int MaxStats[3][4] = {
+-	{ 250, 50, 60, 100 },
+-	{ 55, 70, 250, 80 },
+-	{ 45, 250, 85, 80 }
++	{ 500, 100, 120, 200 },
++	{ 110, 140, 500, 160 },
++	{ 90, 500, 170, 80 }
+ };
+ /** Specifies the experience point limit of each level. */
+ int ExpLvlsTbl[MAXCHARLEVEL] = {
 diff --git a/SourceX/DiabloUI/selgame.cpp b/SourceX/DiabloUI/selgame.cpp
 index e786503d..895efff6 100644
 --- a/SourceX/DiabloUI/selgame.cpp
@@ -47,28 +64,10 @@ index e786503d..895efff6 100644
  			if (!IsDifficultyAllowed(m_client_info->initdata->bDiff)) {
  				selgame_GameSelection_Select(1);
 diff --git a/defs.h b/defs.h
-index 059de08e..a3996b82 100644
+index 059de08e..16e39d21 100644
 --- a/defs.h
 +++ b/defs.h
-@@ -17,7 +17,7 @@
- #define GMENU_ENABLED			0x80000000
- 
- // must be unsigned to generate unsigned comparisons with pnum
--#define MAX_PLRS				4
-+#define MAX_PLRS				16
- 
- #define MAX_CHARACTERS			10
- #define MAX_LVLMTYPES			16
-@@ -25,25 +25,25 @@
- #define MAX_SEND_STR_LEN		80
- #define MAX_SPELLS				37
- 
--#define MAXDEAD					31
-+#define MAXDEAD					62
- #define MAXDUNX					112
- #define MAXDUNY					112
--#define MAXITEMS				127
-+#define MAXITEMS				254
+@@ -32,9 +32,9 @@
  #define MAXBELTITEMS			8
  #define MAXLIGHTS				32
  #define MAXMISSILES				125
@@ -76,23 +75,11 @@ index 059de08e..a3996b82 100644
 +#define MAXMONSTERS				400
  #define MAXMULTIQUESTS			4
 -#define MAXOBJECTS				127
--#define MAXPORTAL				4
 +#define MAXOBJECTS				254
-+#define MAXPORTAL				16
+ #define MAXPORTAL				4
  #define MAXQUESTS				16
  #define MAXTHEMES				50
--#define MAXTILES				2048
-+#define MAXTILES				4096
- #define MAXTRIGGERS				5
- #define MAXVISION				32
- #define MDMAXX					40
- #define MDMAXY					40
--#define MAXCHARLEVEL			51
-+#define MAXCHARLEVEL			99
- #define ITEMTYPES				35
- 
- // number of inventory grid cells
-@@ -59,19 +59,19 @@
+@@ -59,7 +59,7 @@
  #define NUM_TOWNERS				16
  
  // todo: enums
@@ -101,11 +88,8 @@ index 059de08e..a3996b82 100644
  #define SMITH_ITEMS				20
  #define SMITH_PREMIUM_ITEMS		6
  #define SMITH_MAX_VALUE			140000
- #define SMITH_MAX_PREMIUM_VALUE 140000
- 
- // from diablo 2 beta
--#define MAXEXP					2000000000
-+#define MAXEXP					4000000000
+@@ -69,9 +69,9 @@
+ #define MAXEXP					2000000000
  #define MAXRESIST				75
  
 -#define GOLD_SMALL_LIMIT		1000
