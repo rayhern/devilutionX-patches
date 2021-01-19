@@ -11,6 +11,7 @@ echo "Applying patches..."
 # Add patch to add phonebook to diablo.ini file.
 git apply ../patches/qol-patches.patch
 echo "Building..."
+mkdir build/
 cd build/
 cmake -DBINARY_RELEASE=ON -DDEBUG=OFF -DPREFILL_PLAYER_NAME=ON ..
 cmake --build . -j $(sysctl -n hw.physicalcpu)
