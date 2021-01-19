@@ -18,7 +18,7 @@ index f8200289..7567f97a 100644
  
  	return 4;
 diff --git a/Source/player.cpp b/Source/player.cpp
-index 93989dcf..87303b9b 100644
+index 93989dcf..d77a66e2 100644
 --- a/Source/player.cpp
 +++ b/Source/player.cpp
 @@ -78,9 +78,9 @@ char *ClassStrTblOld[] = {
@@ -34,6 +34,59 @@ index 93989dcf..87303b9b 100644
  };
  /** Specifies the experience point limit of each level. */
  int ExpLvlsTbl[MAXCHARLEVEL] = {
+@@ -134,7 +134,8 @@ int ExpLvlsTbl[MAXCHARLEVEL] = {
+ 	892680222,
+ 	1082908612,
+ 	1310707109,
+-	1583495809
++	1583495809,
++	2000000000,
+ };
+ char *ClassStrTbl[] = {
+ 	"Warrior",
+@@ -736,7 +737,11 @@ void NextPlrLevel(int pnum)
+ 		plr[pnum]._pStatPts += 5;
+ 	}
+ 
+-	plr[pnum]._pNextExper = ExpLvlsTbl[plr[pnum]._pLevel];
++	if (plr[pnum]._pLevel >= 50) {
++		plr[pnum]._pNextExper += (plr[pnum]._pNextExper * 2) / 4;
++	} else {
++		plr[pnum]._pNextExper = ExpLvlsTbl[plr[pnum]._pLevel];
++	}
+ 
+ 	hp = plr[pnum]._pClass == PC_SORCERER ? 64 : 128;
+ 	if (gbMaxPlayers == 1) {
+@@ -819,15 +824,25 @@ void AddPlrExperience(int pnum, int lvl, int exp)
+ 		plr[pnum]._pExperience = MAXEXP;
+ 	}
+ 
+-	if (plr[pnum]._pExperience >= ExpLvlsTbl[49]) {
+-		plr[pnum]._pLevel = 50;
++	// if (plr[pnum]._pExperience >= ExpLvlsTbl[49]) {
++	// 	plr[pnum]._pLevel = 50;
++	// 	return;
++	// }
++	if (plr[pnum]._pLevel >= 99) {
++		plr[pnum]._pLevel = 99;
+ 		return;
+ 	}
+ 
+ 	// Increase player level if applicable
+ 	newLvl = 0;
+-	while (plr[pnum]._pExperience >= ExpLvlsTbl[newLvl]) {
+-		newLvl++;
++	if (plr[pnum]._pLevel >= 50) {
++		while (plr[pnum]._pExperience >= (2000000000 * newLvl) / 4) {
++			newLvl++;
++		}
++	} else {
++		while (plr[pnum]._pExperience >= ExpLvlsTbl[newLvl]) {
++			newLvl++;
++		}
+ 	}
+ 	if (newLvl != plr[pnum]._pLevel) {
+ 		for (i = newLvl - plr[pnum]._pLevel; i > 0; i--) {
 diff --git a/SourceX/DiabloUI/selgame.cpp b/SourceX/DiabloUI/selgame.cpp
 index e786503d..895efff6 100644
 --- a/SourceX/DiabloUI/selgame.cpp
@@ -63,10 +116,22 @@ index e786503d..895efff6 100644
  		if (SNetJoinGame(selgame_selectedGame, selgame_Ip, selgame_Password, NULL, NULL, gdwPlayerId)) {
  			if (!IsDifficultyAllowed(m_client_info->initdata->bDiff)) {
  				selgame_GameSelection_Select(1);
+diff --git a/build/.gitkeep b/build/.gitkeep
+deleted file mode 100644
+index e69de29b..00000000
 diff --git a/defs.h b/defs.h
-index 059de08e..16e39d21 100644
+index 059de08e..44b8e6d1 100644
 --- a/defs.h
 +++ b/defs.h
+@@ -17,7 +17,7 @@
+ #define GMENU_ENABLED			0x80000000
+ 
+ // must be unsigned to generate unsigned comparisons with pnum
+-#define MAX_PLRS				4
++#define MAX_PLRS				8
+ 
+ #define MAX_CHARACTERS			10
+ #define MAX_LVLMTYPES			16
 @@ -32,9 +32,9 @@
  #define MAXBELTITEMS			8
  #define MAXLIGHTS				32
@@ -79,7 +144,16 @@ index 059de08e..16e39d21 100644
  #define MAXPORTAL				4
  #define MAXQUESTS				16
  #define MAXTHEMES				50
-@@ -59,7 +59,7 @@
+@@ -43,7 +43,7 @@
+ #define MAXVISION				32
+ #define MDMAXX					40
+ #define MDMAXY					40
+-#define MAXCHARLEVEL			51
++#define MAXCHARLEVEL			100
+ #define ITEMTYPES				35
+ 
+ // number of inventory grid cells
+@@ -59,19 +59,19 @@
  #define NUM_TOWNERS				16
  
  // todo: enums
@@ -88,8 +162,11 @@ index 059de08e..16e39d21 100644
  #define SMITH_ITEMS				20
  #define SMITH_PREMIUM_ITEMS		6
  #define SMITH_MAX_VALUE			140000
-@@ -69,9 +69,9 @@
- #define MAXEXP					2000000000
+ #define SMITH_MAX_PREMIUM_VALUE 140000
+ 
+ // from diablo 2 beta
+-#define MAXEXP					2000000000
++#define MAXEXP					10000000000000
  #define MAXRESIST				75
  
 -#define GOLD_SMALL_LIMIT		1000
